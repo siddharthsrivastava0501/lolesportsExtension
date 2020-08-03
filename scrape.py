@@ -5,9 +5,16 @@ import time
 import sys
 from selenium import webdriver
 from urllib.error import HTTPError
+import json
 
 class Match:
-    def __init__(self, t1n, t1i, t2n, t2i, l, s, y, d):
+
+    """
+        t1n: (String) Name of the first team
+        t1i: (URL) Team icon of the first team
+    """
+
+    def __init__(self, t1n, t1i, t2n, t2i, l, s, y, m, d, w):
         self.team1Name = t1n
         self.team1Icon = t1i
         self.team2Name = t2n
@@ -15,7 +22,9 @@ class Match:
         self.League = l
         self.season: s
         self.year = y
-        self.date = d
+        self.week = w
+        self.month = m
+        self.day = d
 
 def getBSobject(url):
     try:
@@ -33,7 +42,11 @@ def getBSobject(url):
 
 if __name__ == "__main__":
 
-    url = "https://lol.gamepedia.com/LEC/2020_Season/Summer_Season"
+    league = sys.argv[1]
+    season = sys.argv[2]
+    year = sys.argv[3]
+
+    url = "https://lol.gamepedia.com/" + league +  "/" + year + "_Season/" + season + "_Season"
 
     # Use Selenium to navigate webpage
     driver = webdriver.Chrome()
@@ -54,16 +67,21 @@ if __name__ == "__main__":
         # Iterate over all the matches in a given week
         for j in tr:
 
+            # Scrape information about each match
             temp = Match(
                 t1n = j.find_all("span", class_="teamname")[0].get_text(),
                 t1i = j.find_all("img")[0].get("src"),
                 t2n = j.find_all("span", class_="teamname")[1].get_text(),
                 t2i = j.find_all("img")[1].get("src"),
-                l = "LCK",
-                s = "Summer",
-                y = "2020",
-                d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d")
+                l = league,
+                w = i,
+                s = season,
+                y = year,
+                m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
+                d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
             )
+
+            print(json.dumps(temp.__dict__, indent=4))
             
 
         print("-------------")

@@ -7,9 +7,16 @@
         "activeTab"
     ],
 
+    "icons": { 
+        "400": "images/icon.png" 
+     },
+
     "browser_action": {
+        "default_icon": "images/icon.png",
         "default_popup": "popup.html"
     },
+
+   
 
     "manifest_version": 2
 }
