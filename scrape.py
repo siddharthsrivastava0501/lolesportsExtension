@@ -59,29 +59,30 @@ if __name__ == "__main__":
     soup = BeautifulSoup(driver.page_source, "lxml")
 
     # Set up the matches to iterate over
-    for i in range(1, 11):
-        classesToIterate = ["ml-allw ml-w" + str(i) + " ml-row", "ml-allw ml-w" +str(i) + " ml-row matchlist-newday", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd matchlist-newday"]
+    with open ('lck.json', 'w') as f:
+        for i in range(1, 11):
+            classesToIterate = ["ml-allw ml-w" + str(i) + " ml-row", "ml-allw ml-w" +str(i) + " ml-row matchlist-newday", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd matchlist-newday"]
 
-        tr = soup.find_all("tr", class_=classesToIterate)
+            tr = soup.find_all("tr", class_=classesToIterate)
 
-        # Iterate over all the matches in a given week
-        for j in tr:
+            # Iterate over all the matches in a given week
+            for j in tr:
 
-            # Scrape information about each match
-            temp = Match(
-                t1n = j.find_all("span", class_="teamname")[0].get_text(),
-                t1i = j.find_all("img")[0].get("src"),
-                t2n = j.find_all("span", class_="teamname")[1].get_text(),
-                t2i = j.find_all("img")[1].get("src"),
-                l = league,
-                w = i,
-                s = season,
-                y = year,
-                m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
-                d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
-            )
+                # Scrape information about each match
+                temp = Match(
+                    t1n = j.find_all("span", class_="teamname")[0].get_text(),
+                    t1i = j.find_all("img")[0].get("src"),
+                    t2n = j.find_all("span", class_="teamname")[1].get_text(),
+                    t2i = j.find_all("img")[1].get("src"),
+                    l = league,
+                    w = i,
+                    s = season,
+                    y = year,
+                    m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
+                    d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
+                )
 
-            print(json.dumps(temp.__dict__, indent=4))
-            
+                #json.dump(temp.__dict__, f, indent=4)
+  
 
-        print("-------------")
+    print("DONE")

@@ -1,4 +1,4 @@
-const matches = [
+[
     {
         "team1Name": "AF",
         "team1Icon": "https://gamepedia.cursecdn.com/lolesports_gamepedia_en/thumb/3/35/Afreeca_Freecslogo_std.png/36px-Afreeca_Freecslogo_std.png?version=1b2c4a89f8385b25722ca85fa860ead0",
@@ -901,45 +901,4 @@ const matches = [
         "month": 8,
         "day": 23
     }
-];
-
-document.getElementById("scrollmenu").innerHTML = 
-`
-${
-    matches.map((game) => {
-        return `
-            <div class="match">
-
-                <div class="match-element">
-                    <div className="teamcontainer">
-                        <img src=${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
-                        <p class=match-team-name> ${game.team1Name} </p>
-                    </div> 
-                </div>
-
-                <div class="match-element">
-                    <div className="teamcontainer">
-                        <img src=${game.team2Icon} alt=${game.team2Name} />
-                        <p class=match-team-name> ${game.team2Name}</p>
-                    </div>
-                </div>
-
-                <div class="match-element">
-                    <p class="date"> ${game.day} - ${game.month} </p>
-                </div>
-
-            </div>
-        `
-    }).join(' ')
-} 
-    
-`
-
-
-
-
-
-
-
-
-/* */
+]

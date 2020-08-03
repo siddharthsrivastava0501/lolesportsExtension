@@ -9,16 +9,62 @@
         <style>
 
             body {
-                width: 500px;
+                color: white;
+                font-family: "Lato";
+                background-color: #061B26;
+                width: 400px;
+                text-align: center;
             }
+
+            img.header {
+                width: 150px;
+            }
+
+            .match {
+                padding: 7px;
+                font-size: 15px;
+                width: 80px;
+                padding-top: 0;
+                display: inline-block;
+            }
+
+            .match-element {
+                text-align: center;
+            }
+
+            .match-element img {
+                float: left;
+                
+            }
+
+            .date {
+                font-size: 12px;
+                filter: opacity(0.8);
+            }
+
+            .teamcontainer {
+                display: inline-block;
+            }
+
+            div#scrollmenu {
+                overflow-x: scroll;
+                width: auto;
+                white-space: nowrap;
+
+            }
+
+
 
         </style>
 
-        <script src="popup.js"></script>
+        <script defer src="popup.js"></script>
     </head>
 
     <body>
-        <h1>Hello, world!</h1>
+        <img src="images/header.jpeg" alt="LoL Esports" class="header">
+
+        <div id="scrollmenu">
+        </div>
         
     </body>
 </html>
