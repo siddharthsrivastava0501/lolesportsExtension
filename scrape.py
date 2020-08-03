@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
-from datetime import date
+import datetime
 import time
+import sys
 from selenium import webdriver
 from urllib.error import HTTPError
 
@@ -32,12 +33,11 @@ def getBSobject(url):
 
 if __name__ == "__main__":
 
-    url = "https://lol.gamepedia.com/LCK/2020_Season/Summer_Season"
+    url = "https://lol.gamepedia.com/LEC/2020_Season/Summer_Season"
 
     # Use Selenium to navigate webpage
     driver = webdriver.Chrome()
     driver.get(url)
-    time.sleep(3)
 
     button = driver.find_elements_by_xpath("//div[@class='expand-contract-button']")[1]
     button.click()
@@ -45,12 +45,25 @@ if __name__ == "__main__":
     # Get soup object
     soup = BeautifulSoup(driver.page_source, "lxml")
 
-    #Iterate over 10 weeks
-    for i in range(1, 11):     
-
-        # Set up the matches to iterate over
-        classesToIterate = ["ml-allw ml-w" +str(i) + "ml-row", "ml-allw ml-w" +str(i) + "ml-row matchlist-newday"]
+    # Set up the matches to iterate over
+    for i in range(1, 11):
+        classesToIterate = ["ml-allw ml-w" + str(i) + " ml-row", "ml-allw ml-w" +str(i) + " ml-row matchlist-newday", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd", "ml-allw ml-w" + str(i) + " ml-row ml-row-tbd matchlist-newday"]
 
         tr = soup.find_all("tr", class_=classesToIterate)
-        temp = tr[1].find_all("span", class_="teamname")
-        print(temp)
+
+        # Iterate over all the matches in a given week
+        for j in tr:
+
+            temp = Match(
+                t1n = j.find_all("span", class_="teamname")[0].get_text(),
+                t1i = j.find_all("img")[0].get("src"),
+                t2n = j.find_all("span", class_="teamname")[1].get_text(),
+                t2i = j.find_all("img")[1].get("src"),
+                l = "LCK",
+                s = "Summer",
+                y = "2020",
+                d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d")
+            )
+            
+
+        print("-------------")
