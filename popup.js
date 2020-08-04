@@ -1092,36 +1092,100 @@ document.getElementById("scrollmenu").innerHTML =
 ${
     matches.map((game) => {
 
-        if (game.firstInWeek == "True" && game.firstInDay == "True") {
+        if (game.firstInWeek == "True") {
 
-        } else if (game.firstInWeek == "True" )
-        return `
-            <div class="match">
+            return `
+                <div class="match">
 
-                <div class="match-element">
-                    <div className="teamcontainer">
-                        <img src=${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
-                        <p class=match-team-name> ${game.team1Name} </p>
-                    </div> 
-                </div>
+                        <div class="match-element">
+                            <p class= "week"> Week ${game.week} </p>
+                        </div>
 
-                <div class="match-element">
-                    <div className="teamcontainer">
-                        <img src=${game.team2Icon} alt=${game.team2Name} />
-                        <p class=match-team-name> ${game.team2Name}</p>
-                    </div>
-                </div>
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                                <p class= "match-team-name"> ${game.team1Name} </p>
+                            </div> 
+                        </div>
 
-                <div class="match-element">
-                    <p class="date"> ${game.day} - ${game.month} </p>
-                </div>
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src=${game.team2Icon} alt=${game.team2Name} />
+                                <p class="match-team-name"> ${game.team2Name}</p>
+                            </div>
+                        </div>
 
-            </div>
+                        <div class="match-element">
+                            <p class="date"> ${game.day} - ${game.month} </p>
+                        </div>
+
+                </div>  
+                `
+
+        } else if (game.firstInDay == "True" && game.firstInWeek == "False") {
+
+            return `
+                <div class="match">
+
+                        <div class="match-element">
+                            <p class= "week"> </p>
+                        </div>
+
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                                <p class= "match-team-name"> ${game.team1Name} </p>
+                            </div> 
+                        </div>
+
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src=${game.team2Icon} alt=${game.team2Name} />
+                                <p class="match-team-name"> ${game.team2Name}</p>
+                            </div>
+                        </div>
+
+                        <div class="match-element">
+                            <p class="date"> ${game.day} - ${game.month} </p>
+                        </div>
+
+                </div>  
         `
 
 
+        } else {
+
+            return `
+                <div class="match">
+
+                        <div class="match-element">
+                            <p class= "week"> </p>
+                        </div>
+
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                                <p class= "match-team-name"> ${game.team1Name} </p>
+                            </div> 
+                        </div>
+
+                        <div class="match-element">
+                            <div className="teamcontainer">
+                                <img src=${game.team2Icon} alt=${game.team2Name} />
+                                <p class="match-team-name"> ${game.team2Name}</p>
+                            </div>
+                        </div>
+
+                        <div class="match-element">
+                            <p class="date"> &nbsp; </p>
+                        </div>
+
+                </div>  
+        `
+
+        }
         
-    }).join(' ')
+    }).join('')
 } 
     
 `
@@ -1133,4 +1197,91 @@ ${
 
 
 
-/* */
+/* 
+if (game.firstInWeek == "True" && game.firstInDay == "True") {
+
+            return `
+            <div class="match">
+
+                <div class="match-element">
+                    <p class= "week"> ${game.week} </p>
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                        <p class= "match-team-name"> ${game.team1Name} </p>
+                    </div> 
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src=${game.team2Icon} alt=${game.team2Name} />
+                        <p class="match-team-name"> ${game.team2Name}</p>
+                    </div>
+                </div>
+
+                <div class="match-element">
+                    <p class="date"> ${game.day} - ${game.month} </p>
+                </div>
+
+            </div>
+            `
+
+        } else if (game.firstInWeek == "False" && game.firstInDay == "True") {
+
+            return `
+                <div class="match">
+
+                <div class="match-element">
+                    <p class="week"> </p>
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                        <p class="match-team-name"> ${game.team1Name} </p>
+                    </div> 
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src=${game.team2Icon} alt=${game.team2Name} />
+                        <p class="match-team-name"> ${game.team2Name}</p>
+                    </div>
+                </div>
+
+                <div class="match-element">
+                    <p class="date"> ${game.day} - ${game.month} </p>
+                </div>
+
+                </div>
+            `
+
+
+        } else {
+
+            return `
+                <div class="match-element">
+                    <p class="week"> ${game.week} </p>
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src= ${game.team1Icon} alt=${game.team1Name} style="float: left;"/>
+                        <p class="match-team-name"> ${game.team1Name} </p>
+                    </div> 
+                </div>
+
+                <div class="match-element">
+                    <div className="teamcontainer">
+                        <img src=${game.team2Icon} alt=${game.team2Name} />
+                        <p class="match-team-name"> ${game.team2Name}</p>
+                    </div>
+                </div>
+
+                <div class="match-element">
+                    <p class="date"> ${game.day} - ${game.month} </p>
+                </div>
+            ` 
+        }*/
