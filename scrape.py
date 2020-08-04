@@ -14,7 +14,10 @@ class Match:
         t1i: (URL) Team icon of the first team
     """
 
-    def __init__(self, t1n, t1i, t2n, t2i, l, s, y, m, d, w):
+    def __init__(self, t1n, t1i, t2n, t2i, l, s, y, m, d, w, fw="False", fd="False"):
+        self.firstInWeek = fw
+        self.firstInDay = fd
+
         self.team1Name = t1n
         self.team1Icon = t1i
         self.team2Name = t2n
@@ -68,21 +71,64 @@ if __name__ == "__main__":
             # Iterate over all the matches in a given week
             for j in tr:
 
-                # Scrape information about each match
-                temp = Match(
-                    t1n = j.find_all("span", class_="teamname")[0].get_text(),
-                    t1i = j.find_all("img")[0].get("src"),
-                    t2n = j.find_all("span", class_="teamname")[1].get_text(),
-                    t2i = j.find_all("img")[1].get("src"),
-                    l = league,
-                    w = i,
-                    s = season,
-                    y = year,
-                    m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
-                    d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
-                )
+                # Check if the match is the first of the week
+                if (j == tr[0]):
+                    temp = Match(
 
-                #json.dump(temp.__dict__, f, indent=4)
+                        fw = "True",
+                        fd = "True",
+                        t1n = j.find_all("span", class_="teamname")[0].get_text(),
+                        t1i = j.find_all("img")[0].get("src"),
+                        t2n = j.find_all("span", class_="teamname")[1].get_text(),
+                        t2i = j.find_all("img")[1].get("src"),
+                        l = league,
+                        w = i,
+                        s = season,
+                        y = year,
+                        m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
+                        d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
+                    )
+
+                    json.dump(temp.__dict__, f, indent=4)
+
+                # Check if the match is the first of the day AND not first of the week (that has already been taken care of above)
+                elif (tr.index(j) % 2 == 0 and tr.index(j) != 0):
+
+                    temp = Match(
+
+                        fd = "True",
+
+                        t1n = j.find_all("span", class_="teamname")[0].get_text(),
+                        t1i = j.find_all("img")[0].get("src"),
+                        t2n = j.find_all("span", class_="teamname")[1].get_text(),
+                        t2i = j.find_all("img")[1].get("src"),
+                        l = league,
+                        w = i,
+                        s = season,
+                        y = year,
+                        m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
+                        d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
+                    )
+
+                    json.dump(temp.__dict__, f, indent=4)
+
+                # If neither
+                else:
+                    temp = Match(
+
+                        t1n = j.find_all("span", class_="teamname")[0].get_text(),
+                        t1i = j.find_all("img")[0].get("src"),
+                        t2n = j.find_all("span", class_="teamname")[1].get_text(),
+                        t2i = j.find_all("img")[1].get("src"),
+                        l = league,
+                        w = i,
+                        s = season,
+                        y = year,
+                        m = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").month,
+                        d = datetime.datetime.strptime(j.get("data-date"), "%Y-%m-%d").day
+                    )
+
+                    json.dump(temp.__dict__, f, indent=4)
+
   
-
     print("DONE")
