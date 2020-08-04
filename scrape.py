@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
                     json.dump(temp.__dict__, f, indent=4)
 
-                # If neither
+                # If neither conditions are met 
                 else:
                     temp = Match(
 

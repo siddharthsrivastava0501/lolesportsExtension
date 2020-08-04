@@ -15,6 +15,8 @@
                 background-color: #061B26;
                 width: 400px;
                 text-align: center;
+                margin: 0;
+                margin: 10px 0;
             }
 
             img.header {
@@ -22,15 +24,22 @@
             }
 
             .match {
-                padding: 7px;
-                width: 80px;
+                width: 95px;
                 padding-top: 0;
                 display: inline-block;
+                text-align: center;
+                box-sizing: border-box;
+
+            }
+
+            ::-webkit-scrollbar {
+                display: none;
             }
 
             .match-team-name {
                 font-size: 15px;
                 color: white;
+                text-align: center;
             }
 
             .match-element {
@@ -59,7 +68,7 @@
             }
 
             div#scrollmenu {
-                overflow-x: scroll;
+                overflow: auto;
                 width: auto;
                 white-space: nowrap;
 
@@ -75,7 +84,7 @@
     <body>
         <img src="images/header.jpeg" alt="LoL Esports" class="header">
 
-        <div id="scrollmenu">
+        <div id="scrollmenu" onscroll="myFunction()">
         </div>
         
     </body>
