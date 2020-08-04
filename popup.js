@@ -1123,7 +1123,7 @@ function myFunction() {
 
 
 $(document).ready(function() {
-    $("#scrollmenu").scrollLeft(95 * findNearestDate(matches) + 2.1 * findNearestDate(matches));
+    $("#scrollmenu").scrollLeft(89 * findNearestDate(matches) + 2.15 * findNearestDate(matches));
 
 });
 

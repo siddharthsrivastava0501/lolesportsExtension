@@ -1,6 +1,6 @@
 {
     "name": "Lolesports Standings",
-    "description": "hello, world!",
+    "description": "An unofficial Chrome extension that shows the upcoming League of Legends matches from the LCK",
     "version": "1.0.0",
 
     "permissions": [
